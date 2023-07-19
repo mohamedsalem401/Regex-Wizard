@@ -1,46 +1,47 @@
-# Getting Started with Create React App
+# Regex Testing in TypeScript React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a sample Markdown file for testing regular expressions in a TypeScript React project.
+![image](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/a63af0b8-a40b-48e8-a58c-c117a39e683d) ![image](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/1a425f10-6650-4175-8983-f63a63c6626e)
 
-## Available Scripts
+## Usage
 
-In the project directory, you can run:
+1. Clone the repository:
 
-### `npm start`
+   ```shell
+   git clone https://github.com/mohamedsalem401/Regex-Wizard.git
+   ```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+2. Install dependencies:
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+   ```shell
+   cd Regex-Wizard
+   npm install
+   ```
 
-### `npm test`
+3. Start the development server:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+   ```shell
+   npm start
+   ```
 
-### `npm run build`
+4. Open your browser and navigate to `http://localhost:3000` to see the app.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Regular Expression Examples
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Here are some examples of regular expressions that you can test in this project:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Email validation: `^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$`
+- Phone number validation: `^\+?[1-9]\d{1,14}$`
+- URL validation: `^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([\/\w .-]*)*\/?$`
 
-### `npm run eject`
+## Contributing
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Contributions are welcome! If you find any issues or have suggestions for improvement, please create a new issue or submit a pull request on [GitHub](https://github.com/mohamedsalem401/Regex-Wizard).
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## License
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+All Rights Reserved
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+This project is the intellectual property of Mohamed Yahia. All rights are reserved. No part of this project may be distributed or transmitted in any form or by any means, including copying, without the prior written permission of the owner.
 
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+For inquiries, please contact salemmohamed@gmail.com :)
