@@ -1,0 +1,260 @@
+[
+  {
+    "title": "Anchors",
+    "data": [
+      {
+        "title": "Start of string or line",
+        "description": "Matches the beginning of the string or line.",
+        "content": "an answer or a question",
+        "code": "^",
+        "flags": "",
+        "regexString": "^\\w+"
+      },
+      {
+        "title": "End of string or line",
+        "description": "Matches the end of the string or line.",
+        "content": "an answer or a question",
+        "code": "$",
+        "flags": "",
+        "regexString": "\\w+$"
+      },
+      {
+        "title": "word Boundary",
+        "description": "Matches the word character or position at the end of a word.",
+        "content": "an answer or a question",
+        "code": "\\b",
+        "flags": "",
+        "regexString": "n\\b"
+      },
+      {
+        "title": "Not Word Boundary",
+        "description": "Matches a word character or position that is not at the end of a word.",
+        "content": "an answer or a question",
+        "code": "\\B",
+        "flags": "",
+        "regexString": "n\\B"
+      }
+    ]
+  },
+  {
+    "title": "Flags",
+    "data": [
+      {
+        "title": "Ignore Case",
+        "description": "Makes the expression case insensitive.",
+        "content": "CaT",
+        "code": "i",
+        "flags": "i",
+        "regexString": "cat"
+      },
+      {
+        "title": "Global",
+        "description": "Ensures that the expression does not stop on the first match.",
+        "content": "cat cat cat",
+        "code": "g",
+        "flags": "g",
+        "regexString": "cat"
+      },
+      {
+        "title": "Multiline",
+        "description": "If not enabled, line start and end equals the beginning and end of the entire string. It doesn't work for each row individually.",
+        "content": "cat\\n cat",
+        "code": "m",
+        "flags": "m",
+        "regexString": "cat"
+      }
+    ]
+  },
+  {
+    "title": "Group & References",
+    "data": [
+      {
+        "title": "Group",
+        "description": "Groups an expression.",
+        "content": "hahaha hah haha",
+        "code": "()",
+        "flags": "g",
+        "regexString": "(ha)+"
+      },
+      {
+        "title": "Reference",
+        "description": "References a grouped expression.",
+        "content": "hah haa dad",
+        "code": "\\1",
+        "flags": "g",
+        "regexString": "(\\w)a\\1"
+      },
+      {
+        "title": "Non Capturing Group",
+        "description": "Makes a grouping that cannot be referenced.",
+        "content": "hahaha hah haha",
+        "code": "(?:)",
+        "flags": "g",
+        "regexString": "(?:ha)+"
+      }
+    ]
+  },
+  {
+    "title": "Character Classes",
+    "data": [
+      {
+        "title": "Character Set",
+        "description": "Matches any character in the set.",
+        "content": "bar ber bir bor bur",
+        "code": "[abc]",
+        "flags": "",
+        "regexString": "b[eo]r"
+      },
+      {
+        "title": "Negated Character Set",
+        "description": "Matches any character not in the set.",
+        "content": "bar ber bir bor bur",
+        "code": "[^abc]",
+        "flags": "",
+        "regexString": "b[^eo]r"
+      },
+      {
+        "title": "Range",
+        "description": "Matches all characters between two characters, including themselves.",
+        "content": "abcdefghijklmnopqrstuvwxyz",
+        "code": "[a-z]",
+        "flags": "",
+        "regexString": "[e-i]"
+      },
+      {
+        "title": "Dot",
+        "description": "Matches any character except line breaks.",
+        "content": "hi 012 _-!?",
+        "code": ".",
+        "flags": "",
+        "regexString": "."
+      },
+      {
+        "title": "Word",
+        "description": "Matches any alphanumeric character. Including the underline.",
+        "content": "hi 012 _-!?",
+        "code": "\\w",
+        "flags": "",
+        "regexString": "\\w"
+      },
+      {
+        "title": "Not Word",
+        "description": "Matches any non-alphanumeric character.",
+        "content": "hi 012 _-!?",
+        "code": "\\W",
+        "flags": "",
+        "regexString": "\\W"
+      },
+      {
+        "title": "Digit",
+        "description": "Matches any numeric character.",
+        "content": "+1-(444)-222",
+        "code": "\\d",
+        "flags": "",
+        "regexString": "\\d"
+      },
+      {
+        "title": "Not Digit",
+        "description": "Matches any non-numeric character.",
+        "content": "+1-(444)-222",
+        "code": "\\D",
+        "flags": "",
+        "regexString": "\\D"
+      },
+      {
+        "title": "Whitespace",
+        "description": "Matches any whitespace character.",
+        "content": "one two",
+        "code": "\\s",
+        "flags": "",
+        "regexString": "\\s"
+      },
+      {
+        "title": "Not Whitespace",
+        "description": "Matches any non-whitespace character.",
+        "content": "one two",
+        "code": "\\S",
+        "flags": "",
+        "regexString": "\\S"
+      }
+    ]
+  },
+  {
+    "title": "Lookarounds",
+    "data": [
+      {
+        "title": "Positive Lookahead",
+        "content": "1st 2nd 3pc",
+        "code": "(?=)",
+        "flags": "g",
+        "regexString": "\\d(?=nd)"
+      },
+      {
+        "title": "Negative Lookahead",
+        "content": "1st 2nd 3pc",
+        "code": "(?!)",
+        "flags": "g",
+        "regexString": "\\d(?!nd)"
+      },
+      {
+        "title": "Positive Lookbehind",
+        "content": "#1 $2 %3",
+        "code": "(?<=)",
+        "flags": "g",
+        "regexString": "(?<=%)\\d"
+      },
+      {
+        "title": "Negative Lookbehind",
+        "content": "#1 $2 %3",
+        "code": "(?<!)",
+        "flags": "g",
+        "regexString": "(?<!%)\\d"
+      }
+    ]
+  },
+  {
+    "title": "Quantifiers And Alternation",
+    "data": [
+      {
+        "title": "Plus",
+        "description": "Expression matches one or more",
+        "content": "bp bep beep beeep",
+        "code": "+",
+        "flags": "g",
+        "regexString": "be+p"
+      },
+      {
+        "title": "Asterisk",
+        "description": "Expression matches zero or more.",
+        "content": "bp bep beep beeep",
+        "code": "*",
+        "flags": "g",
+        "regexString": "be*p"
+      },
+      {
+        "title": "Quantifier",
+        "description": "Expression matches within specified ranges.",
+        "content": "bp bep beep beeep",
+        "code": "{1,3}",
+        "flags": "g",
+        "regexString": "be{1,2}p"
+      },
+      {
+        "title": "Optional",
+        "description": "Makes the expression optional.",
+        "content": "color, colour",
+        "code": "?",
+        "flags": "g",
+        "regexString": "colou?r"
+      },
+      {
+        "title": "Alternation",
+        "description": "Or it works like. It waits for one of the expressions it reserved to match.",
+        "content": "fat, cat, rat",
+        "code": "|",
+        "flags": "g",
+        "regexString": "(c|r)at"
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+.regex-heading {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.regex-search {
+  margin-bottom: 20px;
+  flex: 1;
+}
+
+.regex-item {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: column;
+  gap: 1;
+  margin-bottom: 10px;
+  border-radius: 8px;
+  padding: 10px 16px;
+  align-items: start;
+  box-shadow: 3px 3px 10px #ccc;
+}
+
+.regex-pattern {
+  font-weight: 700;
+}
+
+.regex-details {
+  background-color: #313131;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 8px;
+  gap: 1;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.regex-regex {
+  overflow: hidden;
+  color: #e8f9ee;
+  font-size: 14px;
+}
+
+.regex-regex-highlight {
+  color: #5ff59b;
+}
+
+.regex-example {
+  font-size: 16px;
+  color: #000000;
+}

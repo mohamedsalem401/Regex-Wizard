@@ -2,6 +2,21 @@
   text-align: center;
 }
 
+.green {
+  background-color: #22c55e;
+  color: #e8f9ee;
+  border-radius: 6px;
+  margin: 1px;
+}
+
+.DraftEditor-root {
+  background-color: #313131;
+  color: #cbcbcb;
+  letter-spacing: 0.05em;
+  line-height: 1.75rem !important;
+  padding: 9px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
