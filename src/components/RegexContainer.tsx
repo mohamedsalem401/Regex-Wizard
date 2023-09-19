@@ -5,44 +5,12 @@ import { PatternContainer } from "./PatternInput";
 import { RegexHandler } from "./RegexHandler";
 import { AddTextStringButton } from "./AddTextStringButton";
 import { RegexContainerTabs } from "./RegexContainerTabs";
-import { AddRegexContainerButton } from "./AddRegexContainerButton";
 import { TextStringGroup } from "./TextStringGroup";
 
-export type Match = {
-  start: number;
-  end: number;
-};
-
-export const RegexContainerGroup: React.FC = ({}) => {
-  const [regexesContainers, setRegexesContainers] = useState([0, 0, 0]);
-
-  const handleAddRegexContainer = () => {
-    const newRegexesContainers = [...regexesContainers, 0];
-    setRegexesContainers(newRegexesContainers);
-  };
-
-  return (
-    <Box
-      style={{
-        display: "flex",
-        padding: "var(--2, 16px) var(--none, 0px)",
-        flexDirection: "column",
-        alignItems: "stretch",
-        gap: "var(--2, 16px)",
-      }}
-    >
-      {regexesContainers.map((regexContainer) => (
-        <RegexContainer />
-      ))}
-      <AddRegexContainerButton onClick={handleAddRegexContainer} />
-    </Box>
-  );
-};
-
-const RegexContainer: React.FC = () => {
+export const RegexContainer: React.FC = () => {
   const stringRegex = initialRegexPattern.toString().replace(/^\/|\/.+/g, "");
   const [regex, setRegex] = useState<RegexHandler>(
-    new RegexHandler(stringRegex, "g", () => {})
+    new RegexHandler(stringRegex, "g", () => { })
   );
   const [textStrings, setTextStrings] = useState([initialText, initialText]);
 
@@ -71,8 +39,7 @@ const RegexContainer: React.FC = () => {
     >
       <RegexContainerTabs
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab}
-      />
+        setCurrentTab={setCurrentTab} />
       <PatternContainer regex={regex} />
       <TextStringGroup
         textStrings={textStrings}
@@ -80,8 +47,7 @@ const RegexContainer: React.FC = () => {
           setTextStrings(newTextStrings);
         }}
         regex={regex}
-        currentTab={currentTab}
-      />
+        currentTab={currentTab} />
       <AddTextStringButton handleAddTextString={handleAddTextString} />
     </Box>
   );

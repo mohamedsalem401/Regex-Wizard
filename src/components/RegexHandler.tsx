@@ -1,4 +1,4 @@
-import { Match } from "./RegexMain";
+import { Match } from "./RegexContainerGroup";
 
 export class BaseRegexHandler {
   private _regexString: string;

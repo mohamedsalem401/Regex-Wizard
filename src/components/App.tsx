@@ -1,7 +1,7 @@
 import "../styles/App.css";
 import { Container, Box } from "@mui/material";
 import { RegexPatternGallery } from "./RegexPatternGallery";
-import { RegexContainerGroup } from "./RegexMain";
+import { RegexContainerGroup } from "./RegexContainerGroup";
 import { RegexReference } from "./RegexReference";
 
 function App() {
