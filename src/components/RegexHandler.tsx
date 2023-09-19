@@ -9,7 +9,7 @@ export class BaseRegexHandler {
     this._flags = flags;
   }
 
-  protected getRegex(): RegExp {
+  get regex(): RegExp {
     const flag = this._flags.length > 0 ? this._flags : "";
     let regex: RegExp;
 
@@ -23,7 +23,7 @@ export class BaseRegexHandler {
   }
 
   getMatches(text: string): Match[] {
-    const regex = this.getRegex();
+    const regex = this.regex;
     const matches: Match[] = [];
     let match: RegExpExecArray | null;
 

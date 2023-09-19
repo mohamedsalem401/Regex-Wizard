@@ -10,9 +10,9 @@ import { TextStringGroup } from "./TextStringGroup";
 export const RegexContainer: React.FC = () => {
   const stringRegex = initialRegexPattern.toString().replace(/^\/|\/.+/g, "");
   const [regex, setRegex] = useState<RegexHandler>(
-    new RegexHandler(stringRegex, "g", () => { })
+    new RegexHandler(stringRegex, "g", () => {})
   );
-  const [textStrings, setTextStrings] = useState([initialText, initialText]);
+  const [textStrings, setTextStrings] = useState([initialText]);
 
   useEffect(() => {
     setRegex(new RegexHandler(stringRegex, "g", setRegex));
@@ -39,7 +39,8 @@ export const RegexContainer: React.FC = () => {
     >
       <RegexContainerTabs
         currentTab={currentTab}
-        setCurrentTab={setCurrentTab} />
+        setCurrentTab={setCurrentTab}
+      />
       <PatternContainer regex={regex} />
       <TextStringGroup
         textStrings={textStrings}
@@ -47,7 +48,8 @@ export const RegexContainer: React.FC = () => {
           setTextStrings(newTextStrings);
         }}
         regex={regex}
-        currentTab={currentTab} />
+        currentTab={currentTab}
+      />
       <AddTextStringButton handleAddTextString={handleAddTextString} />
     </Box>
   );
