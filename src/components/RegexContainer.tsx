@@ -5,26 +5,28 @@ import { PatternContainer } from "./PatternInput";
 import { AddTextStringButton } from "./AddTextStringButton";
 import { RegexContainerTabs } from "./RegexContainerTabs";
 import { TextStringGroup } from "./TextStringGroup";
-import { RegexPatternFinder } from "../utils/RegexPatternFinder";
+import { PatternInvestigator } from "../utils/PatternInvestigator";
 import { TestSuit } from "../utils/TestSuit";
+import { initialRegex } from "../utils/constants";
+
+const patternInvestigator = new PatternInvestigator(
+  initialText,
+  initialRegex,
+  "",
+  new TestSuit()
+);
 
 export const RegexContainer: React.FC = () => {
-  const [regex, setRegex] = useState<RegExp>(/[A-Z]\w+/g);
-  const regexPatternFinder = new RegexPatternFinder(
-    initialText,
-    regex,
-    "",
-    new TestSuit()
-  );
-  const [regexPatternFinderCollection, setRegexPatternFinderCollection] =
-    useState([regexPatternFinder]);
+  const [regex, setRegex] = useState<RegExp>(initialRegex);
+  const [patternInvestigatorCollection, setPatternInvestigatorCollection] =
+    useState([patternInvestigator.clone(), patternInvestigator.clone()]);
 
   const handleAddTextString = () => {
     const newTextStrings = [
-      ...regexPatternFinderCollection,
-      regexPatternFinder,
+      ...patternInvestigatorCollection,
+      patternInvestigator.clone(),
     ];
-    setRegexPatternFinderCollection(newTextStrings);
+    setPatternInvestigatorCollection(newTextStrings);
   };
 
   const [currentTab, setCurrentTab] = useState("MATCH");
@@ -52,9 +54,9 @@ export const RegexContainer: React.FC = () => {
         }}
       />
       <TextStringGroup
-        regexPatternFinderCollection={regexPatternFinderCollection}
-        handleRegexPatternFinderCollectionChange={(newTextStrings) => {
-          setRegexPatternFinderCollection(newTextStrings);
+        patternInvestigatorCollection={patternInvestigatorCollection}
+        handlePatternInvestigatorCollectionChange={(newTextStrings) => {
+          setPatternInvestigatorCollection(newTextStrings);
         }}
         regex={regex}
         currentTab={currentTab}

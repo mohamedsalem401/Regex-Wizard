@@ -1,6 +1,6 @@
 import { TestSuit } from "./TestSuit";
 
-export class RegexPatternFinder {
+export class PatternInvestigator {
   constructor(
     public text: string,
     public regex: RegExp,
@@ -9,11 +9,15 @@ export class RegexPatternFinder {
   ) {}
 
   clone() {
-    return new RegexPatternFinder(
+    return new PatternInvestigator(
       this.text,
       this.regex,
       this.subtitution,
       this.testSuit
     );
+  }
+
+  getSubtitutionOutput() {
+    return this.text.replace(this.regex, this.subtitution);
   }
 }

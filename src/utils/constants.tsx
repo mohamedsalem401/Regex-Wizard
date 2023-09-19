@@ -136,3 +136,4 @@ export const commonRegexes: CommonRegex[] = [
     examples: ["6011111111111117"],
   },
 ];
+export const initialRegex = /[A-Z]\w+/g;
