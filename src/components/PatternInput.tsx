@@ -77,7 +77,9 @@ export const PatternContainer: React.FC<PatternInputProps> = ({
               <Typography
                 style={{ display: "flex", gap: 1, alignItems: "center" }}
               >
-                <Typography color="#000000">/</Typography>
+                <Typography variant="h4" color="#00000050">
+                  /
+                </Typography>
               </Typography>
             </InputAdornment>
           ),
@@ -86,7 +88,9 @@ export const PatternContainer: React.FC<PatternInputProps> = ({
               <Typography
                 style={{ display: "flex", gap: 1, alignItems: "center" }}
               >
-                <Typography color="#000000">/</Typography>
+                <Typography variant="h4" color="#00000050">
+                  /
+                </Typography>
                 <Typography color="#22c55e" style={{ fontSize: "1.3em" }}>
                   {regex.flags}
                 </Typography>
