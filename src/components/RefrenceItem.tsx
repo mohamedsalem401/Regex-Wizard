@@ -79,6 +79,35 @@ const RefrenceItem: React.FC<RefrenceItemProps> = ({ item }) => {
         >
           {item.title}
         </p>
+        {expanded ? (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none" 
+          >
+            <path
+              d="M6 0.294922L0 6.29492L1.41 7.70492L6 3.12492L10.59 7.70492L12 6.29492L6 0.294922Z"
+              fill="black"
+              fill-opacity="0.56"
+            />
+          </svg>
+        ) : (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="12"
+            height="8"
+            viewBox="0 0 12 8"
+            fill="none"
+          >
+            <path
+              d="M6 7.70508L12 1.70508L10.59 0.295078L6 4.87508L1.41 0.295078L0 1.70508L6 7.70508Z"
+              fill="black"
+              fill-opacity="0.56"
+            />
+          </svg>
+        )}
       </Typography>
 
       <Collapse in={expanded}>
@@ -96,7 +125,7 @@ const RefrenceItem: React.FC<RefrenceItemProps> = ({ item }) => {
             value={item.content}
             highlight={matches?.map((match: { start: any; end: any }) => ({
               highlight: [match.start, match.end],
-              className: "green",
+              className: "highlighted",
             }))}
           />
         </Box>

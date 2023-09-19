@@ -1,33 +1,46 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { HighlightWithinTextarea } from "react-highlight-within-textarea";
+import { RegexHandler } from "../RegexHandler";
 
 type DisplayMatchesProps = {
+  regex: RegexHandler;
   text: string;
-  matches: { start: number; end: number; }[];
-  setText: (value: string) => void;
+  handleTextChange: (value: string) => void;
 };
+
 export const TextHighlighterTextarea: React.FC<DisplayMatchesProps> = ({
-  text, matches, setText,
+  regex,
+  text,
+  handleTextChange,
 }) => {
+  const ref = useRef(null);
+  useEffect(() => {
+    (ref.current as unknown as HTMLInputElement).focus();
+  }, []);
+
   return (
     <Box
       sx={{
         p: "10px",
         borderRadius: "6px",
         bgcolor: "#313131",
-        mb: "30px",
         textAlign: "start",
         height: "100%",
+        alignSelf: "stretch",
+        width: "100%",
       }}
     >
       <HighlightWithinTextarea
+        ref={ref}
+        placeholder="Enter the text you want to match here"
         value={text}
-        highlight={matches.map((match) => ({
+        highlight={regex.getMatches(text).map((match) => ({
           highlight: [match.start, match.end],
-          className: "green",
+          className: "highlighted",
         }))}
-        onChange={(value) => setText(value)} />
+        onChange={(value) => handleTextChange(value)}
+      />
     </Box>
   );
 };

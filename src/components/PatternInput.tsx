@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import {
+  Box,
   Checkbox,
   FormControlLabel,
   IconButton,
@@ -16,7 +17,7 @@ interface PatternInputProps {
   regex: RegexHandler;
 }
 
-export const PatternInput: React.FC<PatternInputProps> = ({ regex }) => {
+export const PatternContainer: React.FC<PatternInputProps> = ({ regex }) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -37,9 +38,15 @@ export const PatternInput: React.FC<PatternInputProps> = ({ regex }) => {
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", flex: 1 }}>
+    <Box
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        alignSelf: "stretch",
+      }}
+    >
       <TextField
-        label="Enter Regex"
+        label="Regular Expression"
         variant="outlined"
         fullWidth
         placeholder="[A-Z]+"
@@ -115,6 +122,6 @@ export const PatternInput: React.FC<PatternInputProps> = ({ regex }) => {
           </MenuItem>
         ))}
       </Menu>
-    </div>
+    </Box>
   );
 };
