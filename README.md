@@ -1,7 +1,10 @@
 # Regex Testing in TypeScript React
 
 This is a sample Markdown file for testing regular expressions in a TypeScript React project.
-![image](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/a63af0b8-a40b-48e8-a58c-c117a39e683d) ![image](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/1a425f10-6650-4175-8983-f63a63c6626e)
+
+![mohamedsalem401 github io_Regex-Wizard_](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/bfbf3fdf-3360-4244-95e9-40de518777cf)
+
+![mohamedsalem401 github io_Regex-Wizard_ (1)](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/1ab19664-9a58-4f25-8f57-171c03269d97)
 
 ## Usage
 
