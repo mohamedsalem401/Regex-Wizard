@@ -3,10 +3,6 @@ import { Box } from "@mui/material";
 import { AddRegexContainerButton } from "./AddRegexContainerButton";
 import { RegexContainer } from "./RegexContainer";
 
-export type Match = {
-  start: number;
-  end: number;
-};
 
 export const RegexContainerGroup: React.FC = ({}) => {
   const [regexesContainers, setRegexesContainers] = useState([0, 0, 0]);

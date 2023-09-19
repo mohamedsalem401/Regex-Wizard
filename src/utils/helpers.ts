@@ -21,3 +21,30 @@ export const copyToClipboard = (text: string) => {
 
   document.body.removeChild(textArea);
 };
+
+type Match = {
+  start: number;
+  end: number;
+};
+
+export function findMatchesInText(regex: RegExp, text: string): Match[] {
+  const matches: Match[] = [];
+  let match: RegExpExecArray | null;
+
+  while ((match = regex.exec(text)) !== null) {
+    if (match[0].length === 0) {
+      // Skip empty matches
+      continue;
+    }
+    matches.push({
+      start: match.index,
+      end: match.index + match[0].length,
+    });
+    if (!regex.global) {
+      // If the regex is not global, break after the first match
+      break;
+    }
+  }
+
+  return matches;
+}

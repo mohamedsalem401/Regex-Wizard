@@ -1,10 +1,9 @@
 import React, { useCallback } from "react";
 import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
-import { TextHighlighterTextarea } from "./common/TextHighlighterTextarea";
-import { RegexHandler } from "./RegexHandler";
+import { TextHighlighterTextarea } from "./TextHighlighterTextarea";
 import { DeleteButton } from "./DeleteButton";
 import { ContentCopy } from "@mui/icons-material";
-import { copyToClipboard } from "./helpers";
+import { copyToClipboard } from "../utils/helpers";
 
 export function TextStringGroup({
   textStrings,
@@ -13,7 +12,7 @@ export function TextStringGroup({
   currentTab,
 }: {
   textStrings: string[];
-  regex: RegexHandler;
+  regex: RegExp;
   handleTextStringsArrChange: (newTextStrings: string[]) => void;
   currentTab: string;
 }) {
@@ -34,7 +33,7 @@ export function TextStringGroup({
     },
     []
   );
-  
+
   const getSubtitutionOutputValue = (
     textString: string,
     regex: RegExp,
@@ -46,7 +45,7 @@ export function TextStringGroup({
   const subtitutionText = "123";
   const subtitutionOutputValue = getSubtitutionOutputValue(
     textStrings[0],
-    regex.regex,
+    regex,
     subtitutionText
   );
 

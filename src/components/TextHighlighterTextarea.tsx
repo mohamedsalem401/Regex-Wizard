@@ -1,10 +1,10 @@
 import React, { useEffect, useRef } from "react";
 import { Box } from "@mui/material";
 import { HighlightWithinTextarea } from "react-highlight-within-textarea";
-import { RegexHandler } from "../RegexHandler";
+import { findMatchesInText } from "../utils/helpers";
 
 type DisplayMatchesProps = {
-  regex: RegexHandler;
+  regex: RegExp;
   text: string;
   handleTextChange: (value: string) => void;
 };
@@ -35,7 +35,7 @@ export const TextHighlighterTextarea: React.FC<DisplayMatchesProps> = ({
         ref={ref}
         placeholder="Enter the text you want to match here"
         value={text}
-        highlight={regex.getMatches(text).map((match) => ({
+        highlight={findMatchesInText(regex, text).map((match) => ({
           highlight: [match.start, match.end],
           className: "highlighted",
         }))}

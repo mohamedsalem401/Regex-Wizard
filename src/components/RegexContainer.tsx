@@ -1,22 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { Box } from "@mui/material";
-import { initialRegexPattern, initialText } from "../data/constants";
+import { initialText } from "../utils/constants";
 import { PatternContainer } from "./PatternInput";
-import { RegexHandler } from "./RegexHandler";
 import { AddTextStringButton } from "./AddTextStringButton";
 import { RegexContainerTabs } from "./RegexContainerTabs";
 import { TextStringGroup } from "./TextStringGroup";
 
 export const RegexContainer: React.FC = () => {
-  const stringRegex = initialRegexPattern.toString().replace(/^\/|\/.+/g, "");
-  const [regex, setRegex] = useState<RegexHandler>(
-    new RegexHandler(stringRegex, "g", () => {})
-  );
+  const [regex, setRegex] = useState<RegExp>(/[A-Z]\w+/g);
   const [textStrings, setTextStrings] = useState([initialText]);
-
-  useEffect(() => {
-    setRegex(new RegexHandler(stringRegex, "g", setRegex));
-  }, []);
 
   const handleAddTextString = () => {
     const newTextStrings = [...textStrings, ""];
@@ -41,7 +33,12 @@ export const RegexContainer: React.FC = () => {
         currentTab={currentTab}
         setCurrentTab={setCurrentTab}
       />
-      <PatternContainer regex={regex} />
+      <PatternContainer
+        regex={regex}
+        handleRegexChange={(newRegex) => {
+          setRegex(newRegex);
+        }}
+      />
       <TextStringGroup
         textStrings={textStrings}
         handleTextStringsArrChange={(newTextStrings) => {

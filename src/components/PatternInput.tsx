@@ -10,23 +10,39 @@ import {
   MenuItem,
   Typography,
 } from "@mui/material";
-import { RegexHandler } from "./RegexHandler";
-import { flagsOptions } from "../data/constants";
+import { flagsOptions } from "../utils/constants";
 
 interface PatternInputProps {
-  regex: RegexHandler;
+  regex: RegExp;
+  handleRegexChange: (newRegex: RegExp) => void;
 }
 
-export const PatternContainer: React.FC<PatternInputProps> = ({ regex }) => {
+export const PatternContainer: React.FC<PatternInputProps> = ({
+  regex,
+  handleRegexChange,
+}) => {
   const [selectedIndex, setSelectedIndex] = useState(1);
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
+  const handleStringChange = (newString: string) => {
+    const newRegex = new RegExp(newString, regex.flags);
+    handleRegexChange(newRegex);
+  };
+
   const handleFlagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const newFlags = e.target.checked
-      ? regex.flags + e.target.value
-      : regex.flags.replace(e.target.value, "");
-    regex.updateFlags(newFlags);
+    const flagValue = e.target.value;
+    const isChecked = e.target.checked;
+    let newFlags = regex.flags;
+
+    if (isChecked && !regex.flags.includes(flagValue)) {
+      newFlags += flagValue;
+    } else if (!isChecked && regex.flags.includes(flagValue)) {
+      newFlags = newFlags.replace(flagValue, "");
+    }
+
+    const newRegex = new RegExp(regex.source, newFlags);
+    handleRegexChange(newRegex);
   };
 
   const handleClickListItem = (event: React.MouseEvent<HTMLElement>) => {
@@ -50,8 +66,10 @@ export const PatternContainer: React.FC<PatternInputProps> = ({ regex }) => {
         variant="outlined"
         fullWidth
         placeholder="[A-Z]+"
-        value={regex.regexString}
-        onChange={(e) => regex.updateRegexString(e.target.value)}
+        value={regex.source}
+        onChange={(e) => {
+          handleStringChange(e.target.value);
+        }}
         sx={{ mb: 2 }}
         InputProps={{
           startAdornment: (
