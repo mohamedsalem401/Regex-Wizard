@@ -1,12 +1,12 @@
 // Enum for numeric comparison operations
-enum NumericComparison {
+export enum NumericComparison {
   Equal = "equal",
   LessThan = "less than",
   MoreThan = "more than",
 }
 
 // Enum for string comparison operations
-enum StringComparison {
+export enum StringComparison {
   StartsWith = "starts with",
   EndsWith = "ends with",
   Contains = "contains",

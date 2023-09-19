@@ -29,7 +29,7 @@ export const RegexContainer: React.FC = () => {
     setPatternInvestigatorCollection(newTextStrings);
   };
 
-  const [currentTab, setCurrentTab] = useState("MATCH");
+  const [currentTab, setCurrentTab] = useState("UNIT TESTS");
 
   return (
     <Box
