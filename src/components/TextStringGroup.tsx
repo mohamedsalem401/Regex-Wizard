@@ -4,27 +4,34 @@ import { TextHighlighterTextarea } from "./TextHighlighterTextarea";
 import { DeleteButton } from "./DeleteButton";
 import { ContentCopy } from "@mui/icons-material";
 import { copyToClipboard } from "../utils/helpers";
+import { RegexPatternFinder } from "../utils/RegexPatternFinder";
 
 export function TextStringGroup({
-  textStrings,
+  regexPatternFinderCollection,
   regex,
-  handleTextStringsArrChange,
+  handleRegexPatternFinderCollectionChange: handleRegexPatternFinderCollection,
   currentTab,
 }: {
-  textStrings: string[];
+  regexPatternFinderCollection: RegexPatternFinder[];
   regex: RegExp;
-  handleTextStringsArrChange: (newTextStrings: string[]) => void;
+  handleRegexPatternFinderCollectionChange: (
+    newRegexPatternFinderCollection: RegexPatternFinder[]
+  ) => void;
   currentTab: string;
 }) {
   const handleTextStringChange = (index: number, newText: string) => {
-    const newTextStrings = [...textStrings];
-    newTextStrings[index] = newText;
-    handleTextStringsArrChange(newTextStrings);
+    const newRegexPatternFinderCollection = [...regexPatternFinderCollection];
+    const newRegexPatternFinder = regexPatternFinderCollection[index].clone();
+    newRegexPatternFinder.text = newText;
+    newRegexPatternFinderCollection[index] = newRegexPatternFinder;
+    handleRegexPatternFinderCollection(newRegexPatternFinderCollection);
   };
 
   const handleTextStringDelete = (index: number) => {
-    const newTextStrings = textStrings.filter((_, i) => i !== index);
-    handleTextStringsArrChange(newTextStrings);
+    const newTextStrings = regexPatternFinderCollection.filter(
+      (_, i) => i !== index
+    );
+    handleRegexPatternFinderCollection(newTextStrings);
   };
 
   const handleTextChangeCallback = useCallback(
@@ -44,9 +51,9 @@ export function TextStringGroup({
 
   const subtitutionText = "123";
   const subtitutionOutputValue = getSubtitutionOutputValue(
-    textStrings[0],
+    regexPatternFinderCollection[0].text,
     regex,
-    subtitutionText
+    regexPatternFinderCollection[0].subtitution
   );
 
   return (
@@ -59,7 +66,7 @@ export function TextStringGroup({
         gap: "8px",
       }}
     >
-      {textStrings.map((text, index) => {
+      {regexPatternFinderCollection.map((regexPatternFinder, index) => {
         return (
           <Box
             style={{
@@ -72,7 +79,7 @@ export function TextStringGroup({
               <Box>
                 <TextHighlighterTextarea
                   regex={regex}
-                  text={text}
+                  text={regexPatternFinder.text}
                   handleTextChange={(newText) => {
                     handleTextChangeCallback(index, newText);
                   }}
@@ -103,7 +110,7 @@ export function TextStringGroup({
                 >
                   <TextHighlighterTextarea
                     regex={regex}
-                    text={text}
+                    text={regexPatternFinder.text}
                     handleTextChange={(newText) => {
                       handleTextChangeCallback(index, newText);
                     }}

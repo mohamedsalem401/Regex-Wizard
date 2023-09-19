@@ -5,14 +5,26 @@ import { PatternContainer } from "./PatternInput";
 import { AddTextStringButton } from "./AddTextStringButton";
 import { RegexContainerTabs } from "./RegexContainerTabs";
 import { TextStringGroup } from "./TextStringGroup";
+import { RegexPatternFinder } from "../utils/RegexPatternFinder";
+import { TestSuit } from "../utils/TestSuit";
 
 export const RegexContainer: React.FC = () => {
   const [regex, setRegex] = useState<RegExp>(/[A-Z]\w+/g);
-  const [textStrings, setTextStrings] = useState([initialText]);
+  const regexPatternFinder = new RegexPatternFinder(
+    initialText,
+    regex,
+    "",
+    new TestSuit()
+  );
+  const [regexPatternFinderCollection, setRegexPatternFinderCollection] =
+    useState([regexPatternFinder]);
 
   const handleAddTextString = () => {
-    const newTextStrings = [...textStrings, ""];
-    setTextStrings(newTextStrings);
+    const newTextStrings = [
+      ...regexPatternFinderCollection,
+      regexPatternFinder,
+    ];
+    setRegexPatternFinderCollection(newTextStrings);
   };
 
   const [currentTab, setCurrentTab] = useState("MATCH");
@@ -40,9 +52,9 @@ export const RegexContainer: React.FC = () => {
         }}
       />
       <TextStringGroup
-        textStrings={textStrings}
-        handleTextStringsArrChange={(newTextStrings) => {
-          setTextStrings(newTextStrings);
+        regexPatternFinderCollection={regexPatternFinderCollection}
+        handleRegexPatternFinderCollectionChange={(newTextStrings) => {
+          setRegexPatternFinderCollection(newTextStrings);
         }}
         regex={regex}
         currentTab={currentTab}

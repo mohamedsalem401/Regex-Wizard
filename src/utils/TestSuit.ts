@@ -1,20 +1,25 @@
 // Enum for numeric comparison operations
 enum NumericComparison {
   Equal = "equal",
-  LessThan = "less_than",
-  MoreThan = "more_than",
+  LessThan = "less than",
+  MoreThan = "more than",
 }
 
 // Enum for string comparison operations
 enum StringComparison {
-  StartsWith = "starts_with",
-  EndsWith = "ends_with",
+  StartsWith = "starts with",
+  EndsWith = "ends with",
   Contains = "contains",
-  DoesNotContain = "does_not_contain",
+  DoesNotContain = "does not contain",
 }
 
-class TestSuit {
-  constructor(public description: string, public unitTests: UnitTest[]) {}
+export class TestSuit {
+  constructor(
+    public description: string = "",
+    public unitTests: UnitTest[] = [
+      new CountingMatcher(NumericComparison.MoreThan, 0),
+    ]
+  ) {}
 }
 
 abstract class UnitTest {
@@ -22,7 +27,7 @@ abstract class UnitTest {
   abstract clone(): UnitTest;
 }
 
-class CountingMatcher extends UnitTest {
+export class CountingMatcher extends UnitTest {
   constructor(
     private operation: NumericComparison,
     private expectedValue: number
@@ -48,7 +53,7 @@ class CountingMatcher extends UnitTest {
   }
 }
 
-class StringMatcher extends UnitTest {
+export class StringMatcher extends UnitTest {
   constructor(
     private operation: StringComparison,
     private expectedValue: string,
