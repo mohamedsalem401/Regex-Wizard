@@ -1,10 +1,9 @@
 import React, { useCallback } from "react";
-import { Box, IconButton, InputAdornment, TextField } from "@mui/material";
+import { Box } from "@mui/material";
 import { TextHighlighterTextarea } from "./TextHighlighterTextarea";
-import { DeleteButton } from "./DeleteButton";
-import { ContentCopy } from "@mui/icons-material";
-import { copyToClipboard } from "../utils/helpers";
 import { PatternInvestigator } from "../utils/PatternInvestigator";
+import { RegexFinderWithDelete } from "./RegexFinderWithDelete";
+import { RegexFinderWithSubtitution } from "./RegexFinderWithSubtitution";
 
 export function TextStringGroup({
   patternInvestigatorCollection,
@@ -20,18 +19,12 @@ export function TextStringGroup({
   currentTab: string;
 }) {
   const handleTextChange = (index: number, newText: string) => {
-    const newPatternInvestigatorCollectionChange = [
-      ...patternInvestigatorCollection,
-    ];
     const newRegexPatternFinder = patternInvestigatorCollection[index].clone();
     newRegexPatternFinder.text = newText;
-    newPatternInvestigatorCollectionChange[index] = newRegexPatternFinder;
-    handlePatternInvestigatorCollectionChange(
-      newPatternInvestigatorCollectionChange
-    );
+    handlePatternInvestigatorChange(index, newRegexPatternFinder);
   };
 
-  const handleRegexPatternFinderDelete = (index: number) => {
+  const handleDelete = (index: number) => {
     const newPatternInvestigatorCollectionChange =
       patternInvestigatorCollection.filter((_, i) => i !== index);
     handlePatternInvestigatorCollectionChange(
@@ -46,16 +39,23 @@ export function TextStringGroup({
     [handleTextChange]
   );
 
-  const handleSubtitutionChange = (index: number, newSubtitution: string) => {
+  const handlePatternInvestigatorChange = (
+    index: number,
+    newPatternInvestigator: PatternInvestigator
+  ) => {
     const newPatternInvestigatorCollectionChange = [
       ...patternInvestigatorCollection,
     ];
-    const newRegexPatternFinder = patternInvestigatorCollection[index].clone();
-    newRegexPatternFinder.subtitution = newSubtitution;
-    newPatternInvestigatorCollectionChange[index] = newRegexPatternFinder;
+    newPatternInvestigatorCollectionChange[index] = newPatternInvestigator;
     handlePatternInvestigatorCollectionChange(
       newPatternInvestigatorCollectionChange
     );
+  };
+
+  const handleSubtitutionChange = (index: number, newSubtitution: string) => {
+    const newRegexPatternFinder = patternInvestigatorCollection[index].clone();
+    newRegexPatternFinder.subtitution = newSubtitution;
+    handlePatternInvestigatorChange(index, newRegexPatternFinder);
   };
 
   const handleSubtitutionChangeCallback = useCallback(
@@ -86,93 +86,32 @@ export function TextStringGroup({
           >
             {currentTab === "MATCH" && (
               <Box>
-                <TextHighlighterTextarea
+                <RegexFinderWithDelete
                   regex={regex}
                   text={regexPatternFinder.text}
-                  handleTextChange={(newText) => {
+                  handleTextChange={(newText: string) => {
                     handleTextChangeCallback(index, newText);
                   }}
-                  key={index}
+                  handleDelete={() => {
+                    handleDelete(index);
+                  }}
                 />
               </Box>
             )}
             {currentTab === "SUBTITUTION" && (
-              <Box
-                style={{
-                  display: "flex",
-                  padding: "var(--2, 16px) var(--none, 0px)",
-                  flexDirection: "column",
-                  alignItems: "flex-start",
-                  gap: "var(--4, 16px)",
-                  alignSelf: "stretch",
-                  borderBottom: "2px solid black",
+              <RegexFinderWithSubtitution
+                regex={regex}
+                regexPatternFinder={regexPatternFinder}
+                handleDelete={() => {
+                  handleDelete(index);
                 }}
-              >
-                <Box
-                  style={{
-                    display: "flex",
-                    padding: "var(--none, 0px)",
-                    alignItems: "center",
-                    gap: "var(--2, 16px)",
-                    alignSelf: "stretch",
-                  }}
-                >
-                  <TextHighlighterTextarea
-                    regex={regex}
-                    text={regexPatternFinder.text}
-                    handleTextChange={(newText) => {
-                      handleTextChangeCallback(index, newText);
-                    }}
-                    key={index}
-                  />
-                  <DeleteButton
-                    onClick={() => {
-                      handleRegexPatternFinderDelete(index);
-                    }}
-                  />
-                </Box>
-
-                <TextField
-                  label="SUBTITUTION"
-                  variant="standard"
-                  style={{
-                    alignSelf: "stretch",
-                  }}
-                  value={regexPatternFinder.subtitution}
-                  onChange={(e) => {
-                    handleSubtitutionChangeCallback(index, e.target.value);
-                  }}
-                />
-
-                <TextField
-                  label="OUTPUT"
-                  variant="standard"
-                  disabled
-                  style={{
-                    padding: "var(--none, 0px)",
-                    gap: "var(--none, 0px)",
-                    flex: "1 0 0",
-                    alignSelf: "stretch",
-                  }}
-                  multiline
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        <IconButton
-                          onClick={() => {
-                            copyToClipboard(
-                              regexPatternFinder.getSubtitutionOutput()
-                            );
-                          }}
-                        >
-                          <ContentCopy />
-                        </IconButton>
-                      </InputAdornment>
-                    ),
-                  }}
-                  value={regexPatternFinder.getSubtitutionOutput()}
-                />
-              </Box>
+                handleTextChange={(newText) => {
+                  handleTextChangeCallback(index, newText);
+                }}
+                handleSubtitutionChange={(newSubtitution: string) => {
+                  handleSubtitutionChangeCallback(index, newSubtitution);
+                }}
+              />
             )}
           </Box>
         );

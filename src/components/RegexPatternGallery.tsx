@@ -4,7 +4,7 @@ import { Box, Collapse, Typography } from "@mui/material";
 import { KeyboardArrowDown, ChevronRight } from "@mui/icons-material";
 import { CopyButton } from "./common/CopyButton";
 import "../styles/popular-regex.css";
-import { commonRegexes } from "../data/constants";
+import { commonRegexes } from "../utils/constants";
 
 type Example = {
   id: number;
