@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Box,
   Button,
@@ -20,6 +20,7 @@ import {
   StringComparison,
   StringMatcher,
   TestSuit,
+  UnitTest,
 } from "../utils/TestSuit";
 
 export function TextStringGroup({
@@ -140,9 +141,6 @@ export function TextStringGroup({
                 handleTextChange={(newText) => {
                   handleTextChangeCallback(index, newText);
                 }}
-                handleSubtitutionChange={(newSubtitution: string) => {
-                  handleSubtitutionChangeCallback(index, newSubtitution);
-                }}
               />
             )}
           </Box>
@@ -155,16 +153,26 @@ export function TextStringGroup({
 function RegexFinderWithTestSuit({
   regex,
   regexPatternFinder,
-  handleSubtitutionChange,
   handleTextChange,
   handleDelete: handleDelete,
 }: {
   regex: RegExp;
   regexPatternFinder: PatternInvestigator;
-  handleSubtitutionChange: (newSubtitution: string) => void;
   handleTextChange: (newText: string) => void;
   handleDelete: () => void;
 }) {
+  const [testSuit, setTestSuit] = useState(
+    new TestSuit("Test suit", [
+      new CountingMatcher(NumericComparison.MoreThan, 0),
+      new StringMatcher(StringComparison.Contains, "", 0),
+      new StringMatcher(StringComparison.Contains, "", 0),
+    ])
+  );
+
+  const handleTestSuitChange = (newTestSuit: TestSuit) => {
+    setTestSuit(newTestSuit);
+  };
+
   return (
     <Box
       style={{
@@ -187,17 +195,42 @@ function RegexFinderWithTestSuit({
       />
 
       {/* TestSuit */}
-      <TestSuitContainer />
+      <TestSuitContainer
+        testSuit={testSuit}
+        handleTestSuitChange={handleTestSuitChange}
+      />
     </Box>
   );
 }
 
-function TestSuitContainer() {
-  const testSuit = new TestSuit("Test suit", [
-    new CountingMatcher(NumericComparison.MoreThan, 0),
-    new StringMatcher(StringComparison.Contains, "", 0),
-    new StringMatcher(StringComparison.Contains, "", 0),
-  ]);
+function TestSuitContainer({
+  testSuit,
+  handleTestSuitChange,
+}: {
+  testSuit: TestSuit;
+  handleTestSuitChange: (newTestSuid: TestSuit) => void;
+}) {
+  const handleAddCondition = () => {
+    const newTestSuit = testSuit.clone();
+    newTestSuit.unitTests.push(
+      new StringMatcher(StringComparison.Contains, "", 0)
+    );
+    handleTestSuitChange(newTestSuit);
+  };
+
+  const handleDeleteCondition = (index: number) => {
+    const newTestSuit = testSuit.clone();
+
+    newTestSuit.unitTests.splice(index, 1);
+    handleTestSuitChange(newTestSuit);
+  };
+
+  const handleConditionChange = (index: number, newCondition: UnitTest) => {
+    const newTestSuit = testSuit.clone();
+
+    newTestSuit.unitTests[index] = newCondition;
+    handleTestSuitChange(newTestSuit);
+  };
 
   return (
     <Box
@@ -211,9 +244,6 @@ function TestSuitContainer() {
     >
       <TestDescription />
 
-      <NumericMatchCondition />
-
-      {/* StringMatchConditionGroup */}
       <Box
         style={{
           display: "flex",
@@ -223,28 +253,59 @@ function TestSuitContainer() {
           alignSelf: "stretch",
         }}
       >
-        {testSuit.unitTests.slice(1).map((condition) => {
-          return <StringMatchCondition />;
+        {testSuit.unitTests.map((condition, index) => {
+          if (condition instanceof CountingMatcher) {
+            return (
+              <NumericMatchCondition
+                handleConditionChange={(newCondition: CountingMatcher) => {
+                  handleConditionChange(index, newCondition);
+                }}
+              />
+            );
+          } else if (condition instanceof StringMatcher) {
+            return (
+              <StringMatchCondition
+                condition={condition}
+                handleDeleteCondition={() => {
+                  handleDeleteCondition(index);
+                }}
+                handleConditionChange={(newCondition: StringMatcher) => {
+                  handleConditionChange(index, newCondition);
+                }}
+              />
+            );
+          }
         })}
       </Box>
 
-      <Button
-        style={{
-          display: "flex",
-          height: "36px",
-          padding: "var(--none, 0px) var(--1, 8px)",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: "var(--1, 8px)",
-          alignSelf: "stretch",
-          borderRadius: "4px",
-          background: "rgba(0, 0, 0, 0.04)",
-        }}
-      >
-        <AddCircleOutline style={{ color: "black" }} />
-        Add condition
-      </Button>
+      <AddConditionButton handleAddCondition={handleAddCondition} />
     </Box>
+  );
+}
+
+function AddConditionButton({
+  handleAddCondition,
+}: {
+  handleAddCondition: () => void;
+}) {
+  return (
+    <Button
+      style={{
+        display: "flex",
+        height: "36px",
+        padding: "var(--none, 0px) var(--1, 8px)",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: "var(--1, 8px)",
+        alignSelf: "stretch",
+        borderRadius: "4px",
+        background: "rgba(0, 0, 0, 0.04)",
+      }}
+      onClick={handleAddCondition}
+    >
+      <AddCircleOutline style={{ color: "black" }} />
+      Add condition
+    </Button>
   );
 }
 
@@ -268,7 +329,36 @@ function TestDescription() {
   );
 }
 
-function StringMatchCondition() {
+function StringMatchCondition({
+  condition,
+  handleDeleteCondition,
+  handleConditionChange,
+}: {
+  condition: StringMatcher;
+  handleDeleteCondition: () => void;
+  handleConditionChange: (newCondition: StringMatcher) => void;
+}) {
+  const handleIndexChange = (newIndex: number) => {
+    const newCondition = condition.clone();
+    newCondition.index = newIndex;
+
+    handleConditionChange(newCondition);
+  };
+
+  const handleOperationChange = (newOperation: StringComparison) => {
+    const newCondition = condition.clone();
+    newCondition.operation = newOperation;
+
+    handleConditionChange(newCondition);
+  };
+
+  const handleStringChange = (newString: string) => {
+    const newCondition = condition.clone();
+    newCondition.string = newString;
+
+    handleConditionChange(newCondition);
+  };
+
   return (
     <Box
       style={{
@@ -288,46 +378,70 @@ function StringMatchCondition() {
       <Typography variant="h6">Match number</Typography>
       <TextField
         label="No"
+        value={condition.index}
+        onChange={(e) => {
+          handleIndexChange(e.target.value as unknown as number);
+        }}
         variant="standard"
         type="number"
         inputProps={{ min: 0 }}
         style={{
           maxWidth: "50px",
         }}
-        value={0}
       />
       <Typography variant="h6">will</Typography>
       <FormControl variant="standard">
         <InputLabel id="select-label">Type</InputLabel>
         <Select
           labelId="select-label"
+          value={condition.operation}
+          onChange={(e) => {
+            handleOperationChange(
+              e.target.value as unknown as StringComparison
+            );
+          }}
           id="select-demo"
-          value={"start with"}
           autoWidth
           label="TYPE"
           style={{
             minWidth: "120px",
           }}
         >
-          <MenuItem value={"start with"}>start with</MenuItem>
-          <MenuItem value={"more than"}>more than</MenuItem>
-          <MenuItem value={"less than"}>less than</MenuItem>
+          <MenuItem value={StringComparison.StartsWith}>
+            {StringComparison.StartsWith}
+          </MenuItem>
+          <MenuItem value={StringComparison.EndsWith}>
+            {StringComparison.EndsWith}
+          </MenuItem>
+          <MenuItem value={StringComparison.Contains}>
+            {StringComparison.Contains}
+          </MenuItem>
+          <MenuItem value={StringComparison.DoesNotContain}>
+            {StringComparison.DoesNotContain}
+          </MenuItem>
         </Select>
       </FormControl>
       <TextField
         label="String or Regex"
+        value={condition.string}
+        onChange={(e) => {
+          handleStringChange(e.target.value);
+        }}
         variant="standard"
         style={{
           alignSelf: "stretch",
         }}
-        value={"Alice"}
       />
-      <DeleteButton onClick={() => {}} />
+      <DeleteButton onClick={handleDeleteCondition} />
     </Box>
   );
 }
 
-function NumericMatchCondition() {
+function NumericMatchCondition({
+  handleConditionChange,
+}: {
+  handleConditionChange: (newCondition: CountingMatcher) => void;
+}) {
   return (
     <Box
       style={{
@@ -350,13 +464,19 @@ function NumericMatchCondition() {
         <Select
           labelId="select-label"
           id="select-demo"
-          value={"more than"}
+          value={NumericComparison.MoreThan}
           autoWidth
           label="TYPE"
         >
-          <MenuItem value={"equal"}>equal</MenuItem>
-          <MenuItem value={"more than"}>more than</MenuItem>
-          <MenuItem value={"less than"}>less than</MenuItem>
+          <MenuItem value={NumericComparison.MoreThan}>
+            {NumericComparison.MoreThan}
+          </MenuItem>
+          <MenuItem value={NumericComparison.Equal}>
+            {NumericComparison.Equal}
+          </MenuItem>
+          <MenuItem value={NumericComparison.LessThan}>
+            {NumericComparison.LessThan}
+          </MenuItem>
         </Select>
       </FormControl>
       <TextField

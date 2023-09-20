@@ -20,9 +20,13 @@ export class TestSuit {
       new CountingMatcher(NumericComparison.MoreThan, 0),
     ]
   ) {}
+
+  clone() {
+    return new TestSuit(this.description, this.unitTests);
+  }
 }
 
-abstract class UnitTest {
+export abstract class UnitTest {
   abstract evaluate(matches: RegExpExecArray[]): boolean;
   abstract clone(): UnitTest;
 }
@@ -55,35 +59,31 @@ export class CountingMatcher extends UnitTest {
 
 export class StringMatcher extends UnitTest {
   constructor(
-    private operation: StringComparison,
-    private expectedValue: string,
-    private matchIndex: number
+    public operation: StringComparison,
+    public string: string,
+    public index: number
   ) {
     super();
   }
 
   evaluate(matches: RegExpExecArray[]): boolean {
-    const sourceString = matches[this.matchIndex][0];
+    const sourceString = matches[this.index][0];
 
     switch (this.operation) {
       case StringComparison.StartsWith:
-        return sourceString.startsWith(this.expectedValue);
+        return sourceString.startsWith(this.string);
       case StringComparison.EndsWith:
-        return sourceString.endsWith(this.expectedValue);
+        return sourceString.endsWith(this.string);
       case StringComparison.Contains:
-        return sourceString.includes(this.expectedValue);
+        return sourceString.includes(this.string);
       case StringComparison.DoesNotContain:
-        return !sourceString.includes(this.expectedValue);
+        return !sourceString.includes(this.string);
       default:
         throw new Error("Invalid string comparison operation.");
     }
   }
 
   clone() {
-    return new StringMatcher(
-      this.operation,
-      this.expectedValue,
-      this.matchIndex
-    );
+    return new StringMatcher(this.operation, this.string, this.index);
   }
 }
