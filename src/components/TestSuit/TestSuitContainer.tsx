@@ -1,10 +1,11 @@
 import React from "react";
 import { Box } from "@mui/material";
 import {
-  CountingMatcher, StringComparison,
+  NumericMatcher,
+  StringComparison,
   StringMatcher,
   TestSuit,
-  UnitTest
+  UnitTest,
 } from "../../utils/TestSuit";
 import { StringMatchCondition } from "./StringMatchCondition";
 import { NumericMatchCondition } from "./NumericMatchCondition";
@@ -12,7 +13,8 @@ import { TestDescription } from "./TestDescription";
 import { AddConditionButton } from "./AddConditionButton";
 
 export function TestSuitContainer({
-  testSuit, handleTestSuitChange,
+  testSuit,
+  handleTestSuitChange,
 }: {
   testSuit: TestSuit;
   handleTestSuitChange: (newTestSuid: TestSuit) => void;
@@ -61,12 +63,14 @@ export function TestSuitContainer({
         }}
       >
         {testSuit.unitTests.map((condition, index) => {
-          if (condition instanceof CountingMatcher) {
+          if (condition instanceof NumericMatcher) {
             return (
               <NumericMatchCondition
-                handleConditionChange={(newCondition: CountingMatcher) => {
+                condition={condition}
+                handleConditionChange={(newCondition: NumericMatcher) => {
                   handleConditionChange(index, newCondition);
-                }} />
+                }}
+              />
             );
           } else if (condition instanceof StringMatcher) {
             return (
@@ -77,7 +81,8 @@ export function TestSuitContainer({
                 }}
                 handleConditionChange={(newCondition: StringMatcher) => {
                   handleConditionChange(index, newCondition);
-                }} />
+                }}
+              />
             );
           }
         })}

@@ -76,59 +76,57 @@ export function TextStringGroup({
         gap: "8px",
       }}
     >
-      {patternInvestigatorCollection.map((regexPatternFinder, index) => {
-        return (
-          <Box
-            style={{
-              display: "flex",
-              alignItems: "center",
-              alignSelf: "stretch",
-            }}
-          >
-            {currentTab === "MATCH" && (
-              <Box>
-                <RegexFinderWithDelete
-                  regex={regex}
-                  text={regexPatternFinder.text}
-                  handleTextChange={(newText: string) => {
-                    handleTextChangeCallback(index, newText);
-                  }}
-                  handleDelete={() => {
-                    handleDelete(index);
-                  }}
-                />
-              </Box>
-            )}
-            {currentTab === "SUBTITUTION" && (
-              <RegexFinderWithSubtitution
+      {patternInvestigatorCollection.map((regexPatternFinder, index) => (
+        <Box
+          style={{
+            display: "flex",
+            alignItems: "center",
+            alignSelf: "stretch",
+          }}
+        >
+          {currentTab === "MATCH" && (
+            <Box>
+              <RegexFinderWithDelete
                 regex={regex}
-                regexPatternFinder={regexPatternFinder}
+                text={regexPatternFinder.text}
+                handleTextChange={(newText: string) => {
+                  handleTextChangeCallback(index, newText);
+                }}
                 handleDelete={() => {
                   handleDelete(index);
                 }}
-                handleTextChange={(newText) => {
-                  handleTextChangeCallback(index, newText);
-                }}
-                handleSubtitutionChange={(newSubtitution: string) => {
-                  handleSubtitutionChangeCallback(index, newSubtitution);
-                }}
               />
-            )}
-            {currentTab === "UNIT TESTS" && (
-              <RegexFinderWithTestSuit
-                regex={regex}
-                regexPatternFinder={regexPatternFinder}
-                handleDelete={() => {
-                  handleDelete(index);
-                }}
-                handleTextChange={(newText) => {
-                  handleTextChangeCallback(index, newText);
-                }}
-              />
-            )}
-          </Box>
-        );
-      })}
+            </Box>
+          )}
+          {currentTab === "SUBTITUTION" && (
+            <RegexFinderWithSubtitution
+              regex={regex}
+              regexPatternFinder={regexPatternFinder}
+              handleDelete={() => {
+                handleDelete(index);
+              }}
+              handleTextChange={(newText) => {
+                handleTextChangeCallback(index, newText);
+              }}
+              handleSubtitutionChange={(newSubtitution: string) => {
+                handleSubtitutionChangeCallback(index, newSubtitution);
+              }}
+            />
+          )}
+          {currentTab === "UNIT TESTS" && (
+            <RegexFinderWithTestSuit
+              regex={regex}
+              regexPatternFinder={regexPatternFinder}
+              handleDelete={() => {
+                handleDelete(index);
+              }}
+              handleTextChange={(newText) => {
+                handleTextChangeCallback(index, newText);
+              }}
+            />
+          )}
+        </Box>
+      ))}
     </Box>
   );
 }

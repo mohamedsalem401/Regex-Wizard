@@ -1,23 +1,39 @@
 import React from "react";
 import {
-  Box, FormControl,
+  Box,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
-import {
-  CountingMatcher,
-  NumericComparison
-} from "../../utils/TestSuit";
+import { NumericMatcher, NumericComparison } from "../../utils/TestSuit";
+import { TestUnitIcon } from "./TestUnitIcon";
 
 export function NumericMatchCondition({
+  condition,
   handleConditionChange,
 }: {
-  handleConditionChange: (newCondition: CountingMatcher) => void;
+  condition: NumericMatcher;
+  handleConditionChange: (newCondition: NumericMatcher) => void;
 }) {
+  const handleOperationChange = (newOperation: NumericComparison) => {
+    const newCondition = condition.clone();
+    newCondition.operation = newOperation;
+
+    handleConditionChange(newCondition);
+  };
+
+  const handleValueChange = (newValue: number) => {
+    const newCondition = condition.clone();
+    newCondition.value = newValue;
+
+    handleConditionChange(newCondition);
+  };
+
+  const testResult = false;
+
   return (
     <Box
       style={{
@@ -29,19 +45,21 @@ export function NumericMatchCondition({
         borderBottom: "1px solid #000",
       }}
     >
-      <CheckCircle
-        style={{
-          fill: "#2E7D32",
-        }} />
+      <TestUnitIcon testResult={testResult} />
       <Typography variant="h6">Match</Typography>
       <FormControl variant="standard">
         <InputLabel id="select-label">Type</InputLabel>
         <Select
+          label="TYPE"
+          value={condition.operation}
+          onChange={(e) => {
+            handleOperationChange(
+              e.target.value as unknown as NumericComparison
+            );
+          }}
           labelId="select-label"
           id="select-demo"
-          value={NumericComparison.MoreThan}
           autoWidth
-          label="TYPE"
         >
           <MenuItem value={NumericComparison.MoreThan}>
             {NumericComparison.MoreThan}
@@ -56,12 +74,17 @@ export function NumericMatchCondition({
       </FormControl>
       <TextField
         label="Count"
+        value={condition.value}
+        onChange={(e) => {
+          handleValueChange(e.target.value as unknown as number);
+        }}
         variant="standard"
         type="number"
         inputProps={{ min: 0 }}
         style={{
           maxWidth: "50px",
-        }} />
+        }}
+      />
       <Typography variant="h6">times</Typography>
     </Box>
   );

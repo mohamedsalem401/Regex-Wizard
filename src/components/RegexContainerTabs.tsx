@@ -1,5 +1,6 @@
 import React from "react";
 import { Box, Tab, Tabs } from "@mui/material";
+import { TestSuitIcon } from "./TestSuit/TestSuitIcon";
 
 export function RegexContainerTabs({
   currentTab,
@@ -28,7 +29,19 @@ export function RegexContainerTabs({
       >
         <Tab label="MATCH" value="MATCH" />
         <Tab label="SUBTITUTION" value="SUBTITUTION" />
-        <Tab label="UNIT TESTS" value="UNIT TESTS" />
+        <Tab
+          style={{
+            display: "flex",
+            // padding: "9px var(--2, 16px)",
+            // justifyContent: "center",
+            // alignItems: "center",
+            gap: "var(--1, 8px)",
+          }}
+          label="UNIT TESTS"
+          value="UNIT TESTS"
+          iconPosition="start"
+          icon={<TestSuitIcon testResult={false} />}
+        />
       </Tabs>
     </Box>
   );

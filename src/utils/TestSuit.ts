@@ -17,7 +17,7 @@ export class TestSuit {
   constructor(
     public description: string = "",
     public unitTests: UnitTest[] = [
-      new CountingMatcher(NumericComparison.MoreThan, 0),
+      new NumericMatcher(NumericComparison.MoreThan, 0),
     ]
   ) {}
 
@@ -31,29 +31,26 @@ export abstract class UnitTest {
   abstract clone(): UnitTest;
 }
 
-export class CountingMatcher extends UnitTest {
-  constructor(
-    private operation: NumericComparison,
-    private expectedValue: number
-  ) {
+export class NumericMatcher extends UnitTest {
+  constructor(public operation: NumericComparison, public value: number) {
     super();
   }
 
   evaluate(matches: RegExpExecArray[]): boolean {
     switch (this.operation) {
       case NumericComparison.Equal:
-        return matches.length === this.expectedValue;
+        return matches.length === this.value;
       case NumericComparison.LessThan:
-        return matches.length < this.expectedValue;
+        return matches.length < this.value;
       case NumericComparison.MoreThan:
-        return matches.length > this.expectedValue;
+        return matches.length > this.value;
       default:
         throw new Error("Invalid numeric comparison operation.");
     }
   }
 
   clone() {
-    return new CountingMatcher(this.operation, this.expectedValue);
+    return new NumericMatcher(this.operation, this.value);
   }
 }
 

@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { PatternInvestigator } from "../../utils/PatternInvestigator";
 import { RegexFinderWithDelete } from "../RegexFinderWithDelete";
 import {
-  CountingMatcher,
+  NumericMatcher,
   NumericComparison,
   StringComparison,
   StringMatcher,
@@ -21,7 +21,7 @@ export function RegexFinderWithTestSuit({
 }) {
   const [testSuit, setTestSuit] = useState(
     new TestSuit("Test suit", [
-      new CountingMatcher(NumericComparison.MoreThan, 0),
+      new NumericMatcher(NumericComparison.MoreThan, 0),
       new StringMatcher(StringComparison.Contains, "", 0),
       new StringMatcher(StringComparison.Contains, "", 0),
     ])

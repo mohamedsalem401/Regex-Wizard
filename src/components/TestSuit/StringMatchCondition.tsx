@@ -1,21 +1,22 @@
 import React from "react";
 import {
-  Box, FormControl,
+  Box,
+  FormControl,
   InputLabel,
   MenuItem,
   Select,
   TextField,
-  Typography
+  Typography,
 } from "@mui/material";
 import { CheckCircle } from "@mui/icons-material";
 import { DeleteButton } from "../DeleteButton";
-import {
-  StringComparison,
-  StringMatcher
-} from "../../utils/TestSuit";
+import { StringComparison, StringMatcher } from "../../utils/TestSuit";
+import { TestUnitIcon } from "./TestUnitIcon";
 
 export function StringMatchCondition({
-  condition, handleDeleteCondition, handleConditionChange,
+  condition,
+  handleDeleteCondition,
+  handleConditionChange,
 }: {
   condition: StringMatcher;
   handleDeleteCondition: () => void;
@@ -42,6 +43,8 @@ export function StringMatchCondition({
     handleConditionChange(newCondition);
   };
 
+  const testResult = false;
+
   return (
     <Box
       style={{
@@ -53,10 +56,7 @@ export function StringMatchCondition({
         borderBottom: "1px solid #000",
       }}
     >
-      <CheckCircle
-        style={{
-          fill: "#2E7D32",
-        }} />
+      <TestUnitIcon testResult={testResult} />
       <Typography variant="h6">Match number</Typography>
       <TextField
         label="No"
@@ -69,7 +69,8 @@ export function StringMatchCondition({
         inputProps={{ min: 0 }}
         style={{
           maxWidth: "50px",
-        }} />
+        }}
+      />
       <Typography variant="h6">will</Typography>
       <FormControl variant="standard">
         <InputLabel id="select-label">Type</InputLabel>
@@ -111,7 +112,8 @@ export function StringMatchCondition({
         variant="standard"
         style={{
           alignSelf: "stretch",
-        }} />
+        }}
+      />
       <DeleteButton onClick={handleDeleteCondition} />
     </Box>
   );
