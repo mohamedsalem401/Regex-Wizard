@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/Regex-Wizard/static/css/main.c62d6c87.css",
-    "main.js": "/Regex-Wizard/static/js/main.ad1fd08f.js",
+    "main.css": "/Regex-Wizard/static/css/main.a3061597.css",
+    "main.js": "/Regex-Wizard/static/js/main.9eb02f24.js",
     "index.html": "/Regex-Wizard/index.html",
-    "main.c62d6c87.css.map": "/Regex-Wizard/static/css/main.c62d6c87.css.map",
-    "main.ad1fd08f.js.map": "/Regex-Wizard/static/js/main.ad1fd08f.js.map"
+    "main.a3061597.css.map": "/Regex-Wizard/static/css/main.a3061597.css.map",
+    "main.9eb02f24.js.map": "/Regex-Wizard/static/js/main.9eb02f24.js.map"
   },
   "entrypoints": [
-    "static/css/main.c62d6c87.css",
-    "static/js/main.ad1fd08f.js"
+    "static/css/main.a3061597.css",
+    "static/js/main.9eb02f24.js"
   ]
 }
