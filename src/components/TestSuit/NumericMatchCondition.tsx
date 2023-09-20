@@ -14,9 +14,11 @@ import { TestUnitIcon } from "./TestUnitIcon";
 export function NumericMatchCondition({
   condition,
   handleConditionChange,
+  matches,
 }: {
   condition: NumericMatcher;
   handleConditionChange: (newCondition: NumericMatcher) => void;
+  matches: RegExpExecArray[] | null;
 }) {
   const handleOperationChange = (newOperation: NumericComparison) => {
     const newCondition = condition.clone();
@@ -32,7 +34,9 @@ export function NumericMatchCondition({
     handleConditionChange(newCondition);
   };
 
-  const testResult = false;
+  const getTestResult = () => {
+    return condition.evaluate(matches);
+  };
 
   return (
     <Box
@@ -45,7 +49,7 @@ export function NumericMatchCondition({
         borderBottom: "1px solid #000",
       }}
     >
-      <TestUnitIcon testResult={testResult} />
+      <TestUnitIcon testResult={getTestResult()} />
       <Typography variant="h6">Match</Typography>
       <FormControl variant="standard">
         <InputLabel id="select-label">Type</InputLabel>

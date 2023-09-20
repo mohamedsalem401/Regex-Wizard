@@ -1,10 +1,15 @@
-import React from "react";
 import { Box, TextField } from "@mui/material";
-import { CheckCircle } from "@mui/icons-material";
 import { TestSuitIcon } from "./TestSuitIcon";
 
-export function TestDescription() {
-  const testResult = false;
+export function TestDescription({
+  description,
+  handleTestDescriptionChange,
+  testResult,
+}: {
+  description: string;
+  handleTestDescriptionChange: (newDescription: string) => void;
+  testResult: boolean;
+}) {
   return (
     <Box
       style={{
@@ -14,8 +19,16 @@ export function TestDescription() {
         alignSelf: "stretch",
       }}
     >
-      <TestSuitIcon testResult={testResult}/>
-      <TextField label="Test description" variant="standard" fullWidth />
+      <TestSuitIcon testResult={testResult} />
+      <TextField
+        label="Test description"
+        value={description}
+        onChange={(e) => {
+          handleTestDescriptionChange(e.target.value);
+        }}
+        variant="standard"
+        fullWidth
+      />
     </Box>
   );
 }

@@ -32,15 +32,10 @@ export function RegexContainerTabs({
         <Tab
           style={{
             display: "flex",
-            // padding: "9px var(--2, 16px)",
-            // justifyContent: "center",
-            // alignItems: "center",
-            gap: "var(--1, 8px)",
+            gap: "8px",
           }}
           label="UNIT TESTS"
           value="UNIT TESTS"
-          iconPosition="start"
-          icon={<TestSuitIcon testResult={false} />}
         />
       </Tabs>
     </Box>

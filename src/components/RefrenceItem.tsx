@@ -20,7 +20,6 @@ const RefrenceItem: React.FC<RefrenceItemProps> = ({ item }) => {
   const highlightMatches = () => {
     let regex;
     const flags = item.flags ? item.flags : "g";
-    console.log({ flags });
     try {
       regex = new RegExp(item.regexString, "igm");
     } catch (error) {
@@ -90,7 +89,7 @@ const RefrenceItem: React.FC<RefrenceItemProps> = ({ item }) => {
             <path
               d="M6 0.294922L0 6.29492L1.41 7.70492L6 3.12492L10.59 7.70492L12 6.29492L6 0.294922Z"
               fill="black"
-              fill-opacity="0.56"
+              fillOpacity="0.56"
             />
           </svg>
         ) : (
@@ -104,7 +103,7 @@ const RefrenceItem: React.FC<RefrenceItemProps> = ({ item }) => {
             <path
               d="M6 7.70508L12 1.70508L10.59 0.295078L6 4.87508L1.41 0.295078L0 1.70508L6 7.70508Z"
               fill="black"
-              fill-opacity="0.56"
+              fillOpacity="0.56"
             />
           </svg>
         )}

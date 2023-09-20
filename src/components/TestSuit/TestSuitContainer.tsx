@@ -15,9 +15,11 @@ import { AddConditionButton } from "./AddConditionButton";
 export function TestSuitContainer({
   testSuit,
   handleTestSuitChange,
+  matches,
 }: {
   testSuit: TestSuit;
   handleTestSuitChange: (newTestSuid: TestSuit) => void;
+  matches: RegExpExecArray[] | null;
 }) {
   const handleAddCondition = () => {
     const newTestSuit = testSuit.clone();
@@ -41,6 +43,13 @@ export function TestSuitContainer({
     handleTestSuitChange(newTestSuit);
   };
 
+  const handleTestDescriptionChange = (newDescription: string) => {
+    const newTestSuit = testSuit.clone();
+
+    newTestSuit.description = newDescription;
+    handleTestSuitChange(newTestSuit);
+  };
+
   return (
     <Box
       style={{
@@ -51,7 +60,11 @@ export function TestSuitContainer({
         alignSelf: "stretch",
       }}
     >
-      <TestDescription />
+      <TestDescription
+        description={testSuit.description}
+        handleTestDescriptionChange={handleTestDescriptionChange}
+        testResult={testSuit.evaluate(matches)}
+      />
 
       <Box
         style={{
@@ -67,6 +80,7 @@ export function TestSuitContainer({
             return (
               <NumericMatchCondition
                 condition={condition}
+                matches={matches}
                 handleConditionChange={(newCondition: NumericMatcher) => {
                   handleConditionChange(index, newCondition);
                 }}
@@ -76,6 +90,7 @@ export function TestSuitContainer({
             return (
               <StringMatchCondition
                 condition={condition}
+                matches={matches}
                 handleDeleteCondition={() => {
                   handleDeleteCondition(index);
                 }}

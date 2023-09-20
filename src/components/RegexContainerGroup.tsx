@@ -4,7 +4,7 @@ import { AddRegexContainerButton } from "./AddRegexContainerButton";
 import { RegexContainer } from "./RegexContainer";
 
 export const RegexContainerGroup: React.FC = ({}) => {
-  const [regexesContainers, setRegexesContainers] = useState([0, 0, 0]);
+  const [regexesContainers, setRegexesContainers] = useState([0]);
 
   const handleAddRegexContainer = () => {
     const newRegexesContainers = [...regexesContainers, 0];

@@ -17,10 +17,12 @@ export function StringMatchCondition({
   condition,
   handleDeleteCondition,
   handleConditionChange,
+  matches,
 }: {
   condition: StringMatcher;
   handleDeleteCondition: () => void;
   handleConditionChange: (newCondition: StringMatcher) => void;
+  matches: RegExpExecArray[] | null;
 }) {
   const handleIndexChange = (newIndex: number) => {
     const newCondition = condition.clone();
@@ -43,7 +45,9 @@ export function StringMatchCondition({
     handleConditionChange(newCondition);
   };
 
-  const testResult = false;
+  const getTestResult = () => {
+    return condition.evaluate(matches);
+  };
 
   return (
     <Box
@@ -56,7 +60,7 @@ export function StringMatchCondition({
         borderBottom: "1px solid #000",
       }}
     >
-      <TestUnitIcon testResult={testResult} />
+      <TestUnitIcon testResult={getTestResult()} />
       <Typography variant="h6">Match number</Typography>
       <TextField
         label="No"

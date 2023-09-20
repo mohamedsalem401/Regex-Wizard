@@ -7,18 +7,28 @@ import {
   NumericComparison,
   StringComparison,
   StringMatcher,
-  TestSuit
+  TestSuit,
 } from "../../utils/TestSuit";
 import { TestSuitContainer } from "./TestSuitContainer";
 
 export function RegexFinderWithTestSuit({
-  regex, regexPatternFinder, handleTextChange, handleDelete: handleDelete,
+  regex,
+  regexPatternFinder,
+  handleTextChange,
+  handleDelete: handleDelete,
 }: {
   regex: RegExp;
   regexPatternFinder: PatternInvestigator;
   handleTextChange: (newText: string) => void;
   handleDelete: () => void;
 }) {
+  const matches = [];
+  let match;
+
+  while ((match = regex.exec(regexPatternFinder.text)) !== null) {
+    matches.push(match);
+  }
+  console.log(matches);
   const [testSuit, setTestSuit] = useState(
     new TestSuit("Test suit", [
       new NumericMatcher(NumericComparison.MoreThan, 0),
@@ -49,12 +59,15 @@ export function RegexFinderWithTestSuit({
         handleTextChange={(newText: string) => {
           handleTextChange(newText);
         }}
-        handleDelete={handleDelete} />
+        handleDelete={handleDelete}
+      />
 
       {/* TestSuit */}
       <TestSuitContainer
+        matches={matches}
         testSuit={testSuit}
-        handleTestSuitChange={handleTestSuitChange} />
+        handleTestSuitChange={handleTestSuitChange}
+      />
     </Box>
   );
 }

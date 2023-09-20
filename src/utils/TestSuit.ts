@@ -24,10 +24,20 @@ export class TestSuit {
   clone() {
     return new TestSuit(this.description, this.unitTests);
   }
+
+  evaluate(matches: RegExpExecArray[] | null): boolean {
+    for (let index = 0; index < this.unitTests.length; index++) {
+      const unitTest = this.unitTests[index];
+      if (!unitTest.evaluate(matches)) {
+        return false;
+      }
+    }
+    return true;
+  }
 }
 
 export abstract class UnitTest {
-  abstract evaluate(matches: RegExpExecArray[]): boolean;
+  abstract evaluate(matches: RegExpExecArray[] | null): boolean;
   abstract clone(): UnitTest;
 }
 
@@ -36,7 +46,14 @@ export class NumericMatcher extends UnitTest {
     super();
   }
 
-  evaluate(matches: RegExpExecArray[]): boolean {
+  evaluate(matches: RegExpExecArray[] | null): boolean {
+    console.log(matches)
+    if (!matches) {
+      const shouldBeZeroMatches =
+        this.operation === NumericComparison.Equal && this.value === 0;
+      return shouldBeZeroMatches;
+    }
+
     switch (this.operation) {
       case NumericComparison.Equal:
         return matches.length === this.value;
@@ -63,7 +80,10 @@ export class StringMatcher extends UnitTest {
     super();
   }
 
-  evaluate(matches: RegExpExecArray[]): boolean {
+  evaluate(matches: RegExpExecArray[] | null): boolean {
+    if (!matches) {
+      return false;
+    }
     const sourceString = matches[this.index][0];
 
     switch (this.operation) {
