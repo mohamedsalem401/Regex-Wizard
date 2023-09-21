@@ -1,10 +1,20 @@
 # Regex Testing in TypeScript React
 
-This is a sample Markdown file for testing regular expressions in a TypeScript React project.
+This is an application for testing regular expressions in a TypeScript and React.
 
-![mohamedsalem401 github io_Regex-Wizard_](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/bfbf3fdf-3360-4244-95e9-40de518777cf)
+![Image 1](https://storage.googleapis.com/resume-bucket-404/Project%20gallery/mohamedsalem401.github.io_Regex-Wizard.png)
 
-![mohamedsalem401 github io_Regex-Wizard_ (1)](https://github.com/mohamedsalem401/Regex-Wizard/assets/67981832/1ab19664-9a58-4f25-8f57-171c03269d97)
+![Image 2](https://storage.googleapis.com/resume-bucket-404/Project%20gallery/mohamedsalem401.github.io_Regex-Wizard_%20(3).png)
+
+## Features 🚀
+
+- ✅ **Match Regexes**: Easily test and match regular expressions against input strings.
+
+- 🔄 **Substitution**: Perform substitution operations using regular expressions.
+
+- 🧪 **Unit Testing**: Conduct unit testing of your regular expressions to ensure they work as expected.
+
+- 🌟 **And More**: Explore additional features to enhance your regex testing experience.
 
 ## Usage
 
