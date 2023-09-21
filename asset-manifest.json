@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Regex-Wizard/static/css/main.a3061597.css",
-    "main.js": "/Regex-Wizard/static/js/main.9eb02f24.js",
+    "main.js": "/Regex-Wizard/static/js/main.510e8cfe.js",
     "index.html": "/Regex-Wizard/index.html",
     "main.a3061597.css.map": "/Regex-Wizard/static/css/main.a3061597.css.map",
-    "main.9eb02f24.js.map": "/Regex-Wizard/static/js/main.9eb02f24.js.map"
+    "main.510e8cfe.js.map": "/Regex-Wizard/static/js/main.510e8cfe.js.map"
   },
   "entrypoints": [
     "static/css/main.a3061597.css",
-    "static/js/main.9eb02f24.js"
+    "static/js/main.510e8cfe.js"
   ]
 }
